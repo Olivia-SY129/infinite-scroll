@@ -126,6 +126,4 @@ const main = async () => {
   io.observe(getThresholdEl());
 };
 
-window.addEventListener("DOMContentLoaded", () => {
-  main();
-});
+main();
