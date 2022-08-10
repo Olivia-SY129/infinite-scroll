@@ -1,0 +1,11 @@
+div.content {
+  margin-bottom: 1rem;
+  width: 500px;
+  height: 500px;
+  background-color: brown;
+  color: white;
+  font-size: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
