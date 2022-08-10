@@ -35,6 +35,42 @@ const data = [
   {
     no: 11,
   },
+  {
+    no: 0,
+  },
+  {
+    no: 1,
+  },
+  {
+    no: 2,
+  },
+  {
+    no: 3,
+  },
+  {
+    no: 4,
+  },
+  {
+    no: 5,
+  },
+  {
+    no: 6,
+  },
+  {
+    no: 7,
+  },
+  {
+    no: 8,
+  },
+  {
+    no: 9,
+  },
+  {
+    no: 10,
+  },
+  {
+    no: 11,
+  },
 ];
 
 const containerEl = document.querySelector(".container");
@@ -56,19 +92,23 @@ const updateContents = () =>
     .map((content) => `<div class="content">${content.no}</div>`)
     .join("");
 
+const updateContainer = () => {
+  containerEl.innerHTML = updateContents();
+};
+
+const getThresholdEl = () =>
+  [...containerEl.children][containerEl.children.length - 2];
+
 const callback = (entries, observer) => {
   entries.forEach(async (entry) => {
     if (entry.isIntersecting) {
       const oldData = [...loadedData];
       await updateData();
       const newData = [...loadedData];
-      containerEl.innerHTML = updateContents();
+      updateContainer();
 
       if (oldData.length !== newData.length) {
-        const secondLastEl = [...containerEl.children][
-          containerEl.children.length - 2
-        ];
-        observer.observe(secondLastEl);
+        observer.observe(getThresholdEl());
       }
     }
     console.log(loadedData);
@@ -80,11 +120,12 @@ const callback = (entries, observer) => {
 
 const io = new IntersectionObserver(callback, { threshold: 0.5 });
 
-window.addEventListener("DOMContentLoaded", async () => {
+const main = async () => {
   await updateData();
-  containerEl.innerHTML = updateContents();
-  const secondLastEl = [...containerEl.children][
-    containerEl.children.length - 2
-  ];
-  io.observe(secondLastEl);
+  updateContainer();
+  io.observe(getThresholdEl());
+};
+
+window.addEventListener("DOMContentLoaded", () => {
+  main();
 });
